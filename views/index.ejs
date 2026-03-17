@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task App</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Task Manager</h1>
+    
+    <form action="/tasks" method="POST">
+      <input type="text" name="title" placeholder="Task title" required>
+      <textarea name="description" placeholder="Task description"></textarea>
+      <button type="submit">Add Task</button>
+    </form>
+
+    <div class="tasks">
+      <% tasks.forEach(task => { %>
+        <div class="task">
+          <div class="task-content">
+            <h3><%= task.title %></h3>
+            <% if (task.description) { %>
+              <p><%= task.description %></p>
+            <% } %>
+            <small>Created: <%= task.createdAt.toLocaleDateString() %></small>
+          </div>
+          <form action="/tasks/delete/<%= task.id %>" method="POST">
+            <button type="submit">Delete</button>
+          </form>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>
